@@ -36,12 +36,38 @@ namespace PrimsAlgorithm
             }
             //End 2-dimensional array loop
 
-            Coordinates[] tempCollection = new Coordinates[rows];
-            tempCollection = collection;
+            foreach (Coordinates c in collection)
+            {
+                Console.WriteLine(c.coordinatesAndWeight[0] + ", " + c.coordinatesAndWeight[1] + ", " + c.coordinatesAndWeight[2]);
+            }
+            Console.WriteLine(collection.Length);
+
+            for (int e = 0; e < collection.Length; e++)
+            {
+                int originalX = collection[e].coordinatesAndWeight[0];
+                int originalY = collection[e].coordinatesAndWeight[1];
+                int originalW = collection[e].coordinatesAndWeight[2];
+
+                for (int k = 0; k < collection.Length; k++)
+                {
+                    //Compare collection[e] with collection[k]
+                    int compareX = collection[k].coordinatesAndWeight[0];
+                    int compareY = collection[k].coordinatesAndWeight[1];
+                    int compareW = collection[k].coordinatesAndWeight[2];
+
+                    if(originalX == compareY && originalY == compareX && originalW == compareW)
+                    {
+                        //Remove the comparing collection by setting all values to 0
+                        collection[k].coordinatesAndWeight[0] = 0;
+                        collection[k].coordinatesAndWeight[1] = 0;
+                        collection[k].coordinatesAndWeight[2] = 0;
+                    }
+                }
+            }
 
             foreach(Coordinates c in collection)
             {
-                //Compare each collection with each temp collection until a collection (x, y, w) = tempCollection (y, x, w). Then delete that tempCollection. (Since the array is mirrored over the center diagonal line, we don't want duplicate values. This removes the duplicate values. For example, if c.x = 0, c.y = 1, and c.w = 5, and we're comparing that to temp.x = 1, temp.y = 0, and temp.w = 5, it's the same edge, so we want to remove that set of coordinates from the original array.)
+                Console.WriteLine(c.coordinatesAndWeight[0] + ", " + c.coordinatesAndWeight[1] + ", " + c.coordinatesAndWeight[2]);
             }
 
             Console.ReadLine();
