@@ -22,12 +22,12 @@ namespace PrimsAlgorithm
             int uBound1 = graph.GetUpperBound(1);
             for (int x = 0; x <= uBound0; x++)
             {
-                Console.WriteLine("ROW: " + x);
+                //Console.WriteLine("ROW: " + x);
 
                 for (int y = 0; y <= uBound1; y++)
                 {
                     int weight = graph[x, y];
-                    Console.WriteLine("Weight: " + weight + ", Coordinates: " + x + "," + y);
+                    //Console.WriteLine("Weight: " + weight + ", Coordinates: " + x + "," + y);
 
                     //Insert all nonzero numbers into coords
                     if(weight != 0)
@@ -38,11 +38,7 @@ namespace PrimsAlgorithm
             }
             //End 2-dimensional array loop
 
-            foreach (Coordinates c in coords)
-            {
-                Console.WriteLine(c.coordinatesAndWeight[0] + ", " + c.coordinatesAndWeight[1] + ", " + c.coordinatesAndWeight[2]);
-            }
-            Console.WriteLine(coords.Count);
+            //Console.WriteLine("Length of list: " + coords.Count);
 
             for (int e = 0; e < coords.Count; e++)
             {
@@ -69,10 +65,24 @@ namespace PrimsAlgorithm
 
             coords.RemoveAll(q => q.coordinatesAndWeight[0] == 0 && q.coordinatesAndWeight[1] == 0 && q.coordinatesAndWeight[2] == 0);
 
-            Console.WriteLine("Begin");
-            foreach (Coordinates c in coords)
+            //Console.WriteLine("Non-duplicate coordinates and their weights: ");
+            //foreach (Coordinates c in coords)
+            //{
+            //    Console.WriteLine(c.coordinatesAndWeight[0] + ", " + c.coordinatesAndWeight[1] + ", " + c.coordinatesAndWeight[2]);
+            //}
+
+            coords.Sort((x,y) => x.coordinatesAndWeight[2].CompareTo(y.coordinatesAndWeight[2]));
+
+            //Console.WriteLine("Sorted: ");
+            //foreach (Coordinates c in coords)
+            //{
+            //    Console.WriteLine(c.coordinatesAndWeight[0] + ", " + c.coordinatesAndWeight[1] + ", " + c.coordinatesAndWeight[2]);
+            //}
+
+            Console.WriteLine("How to traverse this array using Prim's algorithm:");
+            for(int s = 0; s < rows; s++)
             {
-                Console.WriteLine(c.coordinatesAndWeight[0] + ", " + c.coordinatesAndWeight[1] + ", " + c.coordinatesAndWeight[2]);
+                Console.WriteLine("Step " + (s + 1) + ": Traverse node at coordinates (" + coords[s].coordinatesAndWeight[0] + ", " + coords[s].coordinatesAndWeight[1] + ") with weight " + coords[s].coordinatesAndWeight[2]);
             }
 
             Console.ReadLine();
