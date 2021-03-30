@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PrimsAlgorithm
 {
@@ -7,6 +8,7 @@ namespace PrimsAlgorithm
         public static void Main(string[] args)
         {
             int rows = 5;
+            List<Coordinates> coords = new List<Coordinates>();
             Coordinates[] collection = new Coordinates[rows];
 
             int[,] graph = new int[,] { { 0, 2, 0, 6, 0 },
@@ -27,45 +29,48 @@ namespace PrimsAlgorithm
                     int weight = graph[x, y];
                     Console.WriteLine("Weight: " + weight + ", Coordinates: " + x + "," + y);
 
-                    //Insert all nonzero numbers into collection
+                    //Insert all nonzero numbers into coords
                     if(weight != 0)
                     {
-                        collection[x] = new Coordinates(x, y, weight);
+                        coords.Add(new Coordinates(x, y, weight));
                     }
                 }
             }
             //End 2-dimensional array loop
 
-            foreach (Coordinates c in collection)
+            foreach (Coordinates c in coords)
             {
                 Console.WriteLine(c.coordinatesAndWeight[0] + ", " + c.coordinatesAndWeight[1] + ", " + c.coordinatesAndWeight[2]);
             }
-            Console.WriteLine(collection.Length);
+            Console.WriteLine(coords.Count);
 
-            for (int e = 0; e < collection.Length; e++)
+            for (int e = 0; e < coords.Count; e++)
             {
-                int originalX = collection[e].coordinatesAndWeight[0];
-                int originalY = collection[e].coordinatesAndWeight[1];
-                int originalW = collection[e].coordinatesAndWeight[2];
+                int originalX = coords[e].coordinatesAndWeight[0];
+                int originalY = coords[e].coordinatesAndWeight[1];
+                int originalW = coords[e].coordinatesAndWeight[2];
 
-                for (int k = 0; k < collection.Length; k++)
+                for (int k = 0; k < coords.Count; k++)
                 {
-                    //Compare collection[e] with collection[k]
-                    int compareX = collection[k].coordinatesAndWeight[0];
-                    int compareY = collection[k].coordinatesAndWeight[1];
-                    int compareW = collection[k].coordinatesAndWeight[2];
+                    //Compare coords[e] with coords[k]
+                    int compareX = coords[k].coordinatesAndWeight[0];
+                    int compareY = coords[k].coordinatesAndWeight[1];
+                    int compareW = coords[k].coordinatesAndWeight[2];
 
                     if(originalX == compareY && originalY == compareX && originalW == compareW)
                     {
-                        //Remove the comparing collection by setting all values to 0
-                        collection[k].coordinatesAndWeight[0] = 0;
-                        collection[k].coordinatesAndWeight[1] = 0;
-                        collection[k].coordinatesAndWeight[2] = 0;
+                        //Remove the comparing coords by setting all values to 0
+                        coords[k].coordinatesAndWeight[0] = 0;
+                        coords[k].coordinatesAndWeight[1] = 0;
+                        coords[k].coordinatesAndWeight[2] = 0;
                     }
                 }
             }
 
-            foreach(Coordinates c in collection)
+            coords.RemoveAll(q => q.coordinatesAndWeight[0] == 0 && q.coordinatesAndWeight[1] == 0 && q.coordinatesAndWeight[2] == 0);
+
+            Console.WriteLine("Begin");
+            foreach (Coordinates c in coords)
             {
                 Console.WriteLine(c.coordinatesAndWeight[0] + ", " + c.coordinatesAndWeight[1] + ", " + c.coordinatesAndWeight[2]);
             }
