@@ -5,19 +5,18 @@ namespace PrimsAlgorithm
 {
     public class Program
     {
-        static int minValue = int.MaxValue;
         static List<Coordinates> sortedCoords = new List<Coordinates>();
-        static List<int> weights = new List<int>();
 
         public static int FindMin(List<Coordinates> coords)
         {
             int weight = 0;
+            int minValue = int.MaxValue;
             Coordinates minCoordinates = coords[0];
 
-            Console.WriteLine("One execution of FindMin(), length of coords is: " + coords.Count);
+            //Console.WriteLine("One execution of FindMin(), length of coords is: " + coords.Count);
             foreach (Coordinates c in coords)
             {
-                Console.WriteLine("Output of execution: " + c.coordinatesAndWeight[0] + ", " + c.coordinatesAndWeight[1] + ", " + c.coordinatesAndWeight[2]);
+                //Console.WriteLine("Output of execution: " + c.coordinatesAndWeight[0] + ", " + c.coordinatesAndWeight[1] + ", " + c.coordinatesAndWeight[2]);
                 weight = c.coordinatesAndWeight[2];
 
                 if (weight < minValue && weight != 0)
@@ -35,9 +34,8 @@ namespace PrimsAlgorithm
 
         static void Main(string[] args)
         {
-
-            int rows = 5;
             List<Coordinates> coords = new List<Coordinates>();
+            int rows = 5;
 
             int[,] graph = new int[,] { { 0, 2, 0, 6, 0 },
                                       { 2, 0, 3, 8, 5 },
@@ -90,21 +88,21 @@ namespace PrimsAlgorithm
             }
 
             coords.RemoveAll(q => q.coordinatesAndWeight[0] == 0 && q.coordinatesAndWeight[1] == 0 && q.coordinatesAndWeight[2] == 0);
-            foreach (Coordinates c in coords)
-            {
-                Console.WriteLine(c.coordinatesAndWeight[0] + ", " + c.coordinatesAndWeight[1] + ", " + c.coordinatesAndWeight[2]);
-            }
-            Console.WriteLine();
+            //foreach (Coordinates c in coords)
+            //{
+            //    Console.WriteLine(c.coordinatesAndWeight[0] + ", " + c.coordinatesAndWeight[1] + ", " + c.coordinatesAndWeight[2]);
+            //}
+            //Console.WriteLine();
 
-            //Call FindMin for however long the List is
-            for (int i = 0; i < coords.Count; i++){
+            //Call FindMin for as many rows as there are
+            for (int i = 0; i < rows; i++){
                 FindMin(coords);
             }
 
-            Console.WriteLine("MST: ");
+            Console.WriteLine("MST using Prim's Algorithm: ");
             foreach (Coordinates c in sortedCoords)
             {
-                Console.WriteLine(c.coordinatesAndWeight[0] + ", " + c.coordinatesAndWeight[1] + ", " + c.coordinatesAndWeight[2]);
+                Console.WriteLine("Coordinates: (" + c.coordinatesAndWeight[0] + ", " + c.coordinatesAndWeight[1] + "), Weight: " + c.coordinatesAndWeight[2]);
             }
 
             Console.ReadLine();
